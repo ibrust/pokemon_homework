@@ -24,6 +24,7 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
         operations_queue.addOperation(fetch_list_operations[0]!)
     }
     
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if page_offset + page_size <= max_pokemon {
@@ -32,6 +33,7 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
             return max_pokemon
         }
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "custom_cell_id", for: indexPath) as? CustomCell
@@ -77,38 +79,36 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
                 }
             }
         }
-        /*
-        for indexPath in indexPaths {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "custom_cell_id", for: indexPath) as? CustomCell
-            
-            cell?.sprite_image_outlet.image = sprite_images[indexPath.row] ?? UIImage()
-            
-            guard let temp_id = array_of_abilities_moves_id_sprites_types[indexPath.row]?.id else {return}
-            cell?.name_label_outlet.text = String(temp_id)  + ": " +  ((pokemon_previous_next_and_results.results[indexPath.row].name) ?? "")
-            
-            cell?.type_label_outlet.text = array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[0].type.name ?? ""
-        }*/
-        
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "segue_to_detail", sender: indexPath.row)
     }
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let sent_row = sender as? Int ?? 0
-        var detail_controller = segue.destination as? DetailController ?? DetailController()
+        let detail_controller = segue.destination as? DetailController ?? DetailController()
 
         detail_controller.temp_name = (pokemon_previous_next_and_results.results[sent_row].name) ?? ""
         guard let temp_id = array_of_abilities_moves_id_sprites_types[sent_row]?.id else {return}
-        detail_controller.temp_id_and_type = String(temp_id)  + ": " + (array_of_abilities_moves_id_sprites_types[sent_row]?.types[0].type.name)! ?? ""
+        detail_controller.temp_id_and_type = String(temp_id)  + ": " + (array_of_abilities_moves_id_sprites_types[sent_row]?.types[0].type.name)!
         
         detail_controller.temp_image = sprite_images[sent_row] ?? UIImage()
+        
+        var temp_ability_list = "Abilities: "
+        for index in 0..<(array_of_abilities_moves_id_sprites_types[sent_row]?.abilities.count)! {
+            temp_ability_list += (array_of_abilities_moves_id_sprites_types[sent_row]?.abilities[index].ability?.name)! + " "
+        }
+        detail_controller.temp_abilities = temp_ability_list
+        
+        var temp_move_list = "Moves: "
+        for index in 0..<(array_of_abilities_moves_id_sprites_types[sent_row]?.moves.count)! {
+            temp_move_list += (array_of_abilities_moves_id_sprites_types[sent_row]?.moves[index].move?.name)! + " "
+        }
+        detail_controller.temp_moves = temp_move_list
     }
-    /*
-     var temp_abilities: String = ""
-     var temp_moves: String = ""*/
-    
 }
 
 
