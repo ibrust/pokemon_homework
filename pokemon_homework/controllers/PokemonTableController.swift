@@ -9,7 +9,8 @@ import UIKit
 
 class PokemonTableController: UITableViewController, UITableViewDataSourcePrefetching {
     
-    let operations_list = [Fetch_Pokemon_Operation?](repeating: nil, count: max_pokemon)
+    var operations_list = [Fetch_Pokemon_Operation?](repeating: nil, count: max_pokemon)
+    var operations_queue = OperationQueue()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,37 +20,18 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
         request_list_of_pokemon()
     }
     
+    
+    // you really want to move this into the operation class and then call these in prefetch
+    // and in cellforrowat ....
     func request_list_of_pokemon(){
         NetworkManager.shared.fetch_list_of_pokemon(global_URL) { [weak self] in ()
             guard let self = self else {return}
             for index in page_offset..<page_size{
-                self.request_single_pokemons_data(index)
+                self.operations_list[index] = Fetch_Pokemon_Operation(index, self)
+                self.operations_queue.addOperation(self.operations_list[index]!)
             }
         }
     }
-    
-    private func request_single_pokemons_data(_ index: Int){
-        /*let data_url = pokemon_previous_next_and_results.results[index].url!
-        NetworkManager.shared.fetch_single_pokemons_data(url: data_url, index: index) { [weak self] in ()
-            guard let self = self else {return}
-            self.request_single_image(index)
-        }*/
-    }
-    
-    private func request_single_image(_ index: Int){
-        guard let image_url = (array_of_abilities_moves_id_sprites_types[index]?.sprites.front_default) else{return}
-        NetworkManager.shared.fetch_single_image(url: image_url) { [weak self] (image) in
-            guard let self = self else {return}
-            sprite_images[index] = image ?? UIImage()
-            let index_path = IndexPath(row: index, section: 0)
-            let row_to_reload: [IndexPath] = [index_path]
-            DispatchQueue.main.async {
-                print("reloading row: ", index)
-                self.tableView.reloadRows(at: row_to_reload, with: .none)
-            }
-        }
-    }
-    
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         print("rows at: ", indexPaths)
