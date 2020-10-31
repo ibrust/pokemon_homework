@@ -31,7 +31,7 @@ public final class NetworkManager{
             do {
                 let json_response = try JSONDecoder().decode(Pokemon_Previous_Next_And_Results.self, from: data)
                 
-                for index in page_offset..<page_size{
+                for index in page_offset..<(page_offset + page_size) {
                     pokemon_previous_next_and_results.results[index] = json_response.results[index]
                 }
                 pokemon_previous_next_and_results.previous = json_response.previous
