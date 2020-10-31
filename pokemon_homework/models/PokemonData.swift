@@ -8,9 +8,8 @@
 import UIKit
 
 var page_offset = 0
-var page_size = 30
+var page_size = 27
 var max_pokemon = 151
-var global_URL = "https://pokeapi.co/api/v2/pokemon?offset=\(page_offset)&limit=\(page_size)"
 
 var sprite_images = [UIImage?](repeating: nil, count: max_pokemon)
 var pokemon_previous_next_and_results = Pokemon_Previous_Next_And_Results()

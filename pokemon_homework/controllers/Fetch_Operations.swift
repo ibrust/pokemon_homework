@@ -13,11 +13,14 @@ var operations_queue = OperationQueue()
 
 class Fetch_List_Operation: Operation {
     
+    var operation_URL: String
+    
     var starting_row: Int
     var table_controller_reference: PokemonTableController?
     
     init(_ starting_row: Int, _ passed_table_controller: PokemonTableController?){
         self.starting_row = starting_row
+        self.operation_URL = "https://pokeapi.co/api/v2/pokemon?offset=\(starting_row)&limit=\(starting_row + page_size)"
         super.init()
         table_controller_reference = passed_table_controller
     }
@@ -26,19 +29,23 @@ class Fetch_List_Operation: Operation {
         request_list_of_pokemon()
     }
     
-    func request_list_of_pokemon(){
-        NetworkManager.shared.fetch_list_of_pokemon(global_URL) { [weak self] in ()
+    private func request_list_of_pokemon(){
+        
+        NetworkManager.shared.fetch_list_of_pokemon(operation_URL, offset:  starting_row) { [weak self] in ()
             guard let self = self else {return}
-            for index in self.starting_row..<(self.starting_row + page_size) {
-                if (index < max_pokemon){
-                    fetch_pokemon_operations[index] = Fetch_Pokemon_Operation(index, self.table_controller_reference)
-                    operations_queue.addOperation(fetch_pokemon_operations[index]!)
+            DispatchQueue.main.async {
+                page_offset = page_offset + page_size
+                self.table_controller_reference?.tableView.reloadData()
+                for index in self.starting_row..<(self.starting_row + page_size) {
+                    if index < max_pokemon {
+                        fetch_pokemon_operations[index] = Fetch_Pokemon_Operation(index, self.table_controller_reference)
+                        operations_queue.addOperation(fetch_pokemon_operations[index]!)
+                    }
                 }
             }
         }
     }
 }
-
 
 class Fetch_Pokemon_Operation: Operation {
     
@@ -72,7 +79,6 @@ class Fetch_Pokemon_Operation: Operation {
             let index_path = IndexPath(row: index, section: 0)
             let row_to_reload: [IndexPath] = [index_path]
             DispatchQueue.main.async {
-                print("image fetch completion for index: ", index)
                 table_controller_reference.tableView.reloadRows(at: row_to_reload, with: .none)
             }
         }
