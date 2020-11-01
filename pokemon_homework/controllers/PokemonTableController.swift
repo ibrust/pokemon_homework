@@ -9,7 +9,7 @@ import UIKit
 
 class PokemonTableController: UITableViewController, UITableViewDataSourcePrefetching {
     
-    var extra_space = 30
+    let extra_space = 30
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,18 +49,39 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
             }
         }
         
+        // move these into an operation object?...
+        
         cell?.sprite_image_outlet.image = sprite_images[indexPath.row] ?? UIImage()
         
         guard let temp_id = array_of_abilities_moves_id_sprites_types[indexPath.row]?.id else {return cell!}
-        cell?.name_label_outlet.text = String(temp_id)  + ": " +  ((pokemon_previous_next_and_results.results[indexPath.row].name) ?? "")
+        cell?.id_label_outlet.text = String(temp_id)
+        
+        cell?.name_label_outlet.text = (pokemon_previous_next_and_results.results[indexPath.row].name) ?? ""
         
         guard var temp_type = array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[0].type.name ?? "" else {return cell ?? CustomCell()}
+        
+        let first_color = Type_Colors(rawValue: temp_type)
+        var second_color: Type_Colors = first_color!
+        
         for index in 1..<(array_of_abilities_moves_id_sprites_types[indexPath.row]?.types.count)! {
             temp_type += "\n" + (array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[index].type.name)!
+            second_color = Type_Colors(rawValue: (array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[index].type.name)!) ?? first_color!
         }
-        
-        cell?.type_label_outlet.text = temp_type // array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[0].type.name ?? ""
+        cell?.type_label_outlet.text = temp_type
 
+        cell?.sprite_image_outlet.backgroundColor = first_color?.get_color()
+        cell?.name_label_outlet.backgroundColor = first_color?.get_color()
+        cell?.type_label_outlet.backgroundColor = first_color?.get_color()
+        cell?.id_label_outlet.backgroundColor = first_color?.get_color()
+        
+        cell?.sprite_image_outlet.isHidden = false
+        cell?.id_label_outlet.isHidden = false
+        cell?.name_label_outlet.isHidden = false
+        cell?.type_label_outlet.isHidden = false
+        
+        cell?.top_border_outlet.backgroundColor = second_color.get_color()
+        cell?.bottom_border_outlet.backgroundColor = second_color.get_color()
+        
         return cell ?? CustomCell()
     }
     

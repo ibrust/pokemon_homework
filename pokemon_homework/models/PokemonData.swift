@@ -72,10 +72,3 @@ struct Pokemon_Abilities_Moves_ID_Sprites_Types: Codable {
 
 
 
-
-
-
-
-
-
-
