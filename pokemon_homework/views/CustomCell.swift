@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomCell: UITableViewCell {
-
+    
     @IBOutlet weak var id_label_outlet: UILabel!
     @IBOutlet weak var sprite_image_outlet: UIImageView!
     @IBOutlet weak var name_label_outlet: UILabel!
@@ -26,5 +26,4 @@ class CustomCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 3, left: 0, bottom: 3, right: 0))
         self.backgroundColor = UIColor.black
     }
-    
 }

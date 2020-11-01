@@ -26,7 +26,6 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if page_offset + page_size <= max_pokemon {
             return page_offset + page_size
         } else {
@@ -48,8 +47,6 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
                 break
             }
         }
-        
-        // move these into an operation object?...
         
         cell?.sprite_image_outlet.image = sprite_images[indexPath.row] ?? UIImage()
         
@@ -81,6 +78,7 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
         
         cell?.top_border_outlet.backgroundColor = second_color.get_color()
         cell?.bottom_border_outlet.backgroundColor = second_color.get_color()
+        
         
         return cell ?? CustomCell()
     }
@@ -118,22 +116,44 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
         let detail_controller = segue.destination as? DetailController ?? DetailController()
 
         detail_controller.temp_name = (pokemon_previous_next_and_results.results[sent_row].name) ?? ""
+        
+        
+        
+        guard var temp_type = array_of_abilities_moves_id_sprites_types[sent_row]?.types[0].type.name ?? "" else {return}
+        
+        let first_color = Type_Colors(rawValue: temp_type)
+        var second_color: Type_Colors = first_color!
+        
+        for index in 1..<(array_of_abilities_moves_id_sprites_types[sent_row]?.types.count)! {
+            temp_type += ", " + (array_of_abilities_moves_id_sprites_types[sent_row]?.types[index].type.name)!
+            second_color = Type_Colors(rawValue: (array_of_abilities_moves_id_sprites_types[sent_row]?.types[index].type.name)!) ?? first_color!
+        }
+        detail_controller.temp_id_and_type = temp_type
+        
         guard let temp_id = array_of_abilities_moves_id_sprites_types[sent_row]?.id else {return}
-        detail_controller.temp_id_and_type = String(temp_id)  + ": " + (array_of_abilities_moves_id_sprites_types[sent_row]?.types[0].type.name)!
+        
+        detail_controller.temp_new_id = String(temp_id)
         
         detail_controller.temp_image = sprite_images[sent_row] ?? UIImage()
         
-        var temp_ability_list = "Abilities: "
+        var temp_ability_list = "ABILITIES:\n"
         for index in 0..<(array_of_abilities_moves_id_sprites_types[sent_row]?.abilities.count)! {
-            temp_ability_list += (array_of_abilities_moves_id_sprites_types[sent_row]?.abilities[index].ability?.name)! + " "
+            temp_ability_list += (array_of_abilities_moves_id_sprites_types[sent_row]?.abilities[index].ability?.name)!
+            if index != (array_of_abilities_moves_id_sprites_types[sent_row]?.abilities.count)! - 1 {
+                temp_ability_list += "\n"
+            }
         }
         detail_controller.temp_abilities = temp_ability_list
         
-        var temp_move_list = "Moves: "
+        var temp_move_list = "MOVES:\n"
         for index in 0..<(array_of_abilities_moves_id_sprites_types[sent_row]?.moves.count)! {
-            temp_move_list += (array_of_abilities_moves_id_sprites_types[sent_row]?.moves[index].move?.name)! + " "
+            temp_move_list += (array_of_abilities_moves_id_sprites_types[sent_row]?.moves[index].move?.name)! + "\n"
         }
         detail_controller.temp_moves = temp_move_list
+        
+        detail_controller.first_color = first_color!.get_color()
+        detail_controller.second_color = second_color.get_color()
+        
     }
 }
 

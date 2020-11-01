@@ -12,9 +12,7 @@ var fetch_list_operations: [Fetch_List_Operation?] = []
 var operations_queue = OperationQueue()
 
 class Fetch_List_Operation: Operation {
-    
     var operation_URL: String
-    
     var starting_row: Int
     var table_controller_reference: PokemonTableController?
     
@@ -26,11 +24,6 @@ class Fetch_List_Operation: Operation {
     }
     
     override func main(){
-        request_list_of_pokemon()
-    }
-    
-    private func request_list_of_pokemon(){
-        
         NetworkManager.shared.fetch_list_of_pokemon(operation_URL, offset:  starting_row) { [weak self] in ()
             guard let self = self else {return}
             DispatchQueue.main.async {
@@ -59,14 +52,10 @@ class Fetch_Pokemon_Operation: Operation {
     }
     
     override func main(){
-        request_single_pokemons_data(operation_index)
-    }
-    
-    private func request_single_pokemons_data(_ index: Int){
-        let data_url = pokemon_previous_next_and_results.results[index].url!
-        NetworkManager.shared.fetch_single_pokemons_data(url: data_url, index: index) { [weak self] in ()
+        let data_url = pokemon_previous_next_and_results.results[operation_index].url!
+        NetworkManager.shared.fetch_single_pokemons_data(url: data_url, index: operation_index) { [weak self] in ()
             guard let self = self else {return}
-            self.request_single_image(index)
+            self.request_single_image(self.operation_index)
         }
     }
     
