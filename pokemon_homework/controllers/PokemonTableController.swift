@@ -54,7 +54,12 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
         guard let temp_id = array_of_abilities_moves_id_sprites_types[indexPath.row]?.id else {return cell!}
         cell?.name_label_outlet.text = String(temp_id)  + ": " +  ((pokemon_previous_next_and_results.results[indexPath.row].name) ?? "")
         
-        cell?.type_label_outlet.text = array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[0].type.name ?? ""
+        guard var temp_type = array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[0].type.name ?? "" else {return cell ?? CustomCell()}
+        for index in 1..<(array_of_abilities_moves_id_sprites_types[indexPath.row]?.types.count)! {
+            temp_type += "\n" + (array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[index].type.name)!
+        }
+        
+        cell?.type_label_outlet.text = temp_type // array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[0].type.name ?? ""
 
         return cell ?? CustomCell()
     }
