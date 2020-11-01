@@ -155,10 +155,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVO-aN-SwH">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="478"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="482"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5YO-Wh-Fk1" userLabel="Image">
-                                                <rect key="frame" x="0.0" y="85" width="414" height="344"/>
+                                                <rect key="frame" x="0.0" y="87" width="414" height="344"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="5YO-Wh-Fk1" secondAttribute="height" multiplier="207:172" id="2I5-jR-Lwu"/>
                                                 </constraints>
@@ -180,7 +180,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpX-zr-4dm" userLabel="Abilities">
-                                                <rect key="frame" x="0.0" y="429" width="414" height="24.5"/>
+                                                <rect key="frame" x="0.0" y="432" width="414" height="24.5"/>
                                                 <color key="backgroundColor" red="0.68076642600000004" green="0.94812817260000004" blue="0.72176995369999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="abilities">
@@ -193,7 +193,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBS-FR-FnB" userLabel="Moves">
-                                                <rect key="frame" x="0.0" y="453.5" width="414" height="24.5"/>
+                                                <rect key="frame" x="0.0" y="457.5" width="414" height="24.5"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="moves">
                                                         <attributes>
@@ -205,7 +205,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w74-ua-y4G" userLabel="ID and Type">
-                                                <rect key="frame" x="0.0" y="50" width="414" height="35"/>
+                                                <rect key="frame" x="0.0" y="51" width="414" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="q3U-SB-Nl0"/>
                                                 </constraints>
@@ -236,20 +236,20 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="ReW-kf-4n5" secondAttribute="trailing" id="13z-MX-9ST"/>
-                                            <constraint firstItem="5YO-Wh-Fk1" firstAttribute="top" secondItem="w74-ua-y4G" secondAttribute="bottom" id="1gQ-KQ-kbr"/>
-                                            <constraint firstItem="pBS-FR-FnB" firstAttribute="top" secondItem="XpX-zr-4dm" secondAttribute="bottom" id="9fE-Zd-lgg"/>
+                                            <constraint firstItem="5YO-Wh-Fk1" firstAttribute="top" secondItem="w74-ua-y4G" secondAttribute="bottom" constant="1" id="1gQ-KQ-kbr"/>
+                                            <constraint firstItem="pBS-FR-FnB" firstAttribute="top" secondItem="XpX-zr-4dm" secondAttribute="bottom" constant="1" id="9fE-Zd-lgg"/>
                                             <constraint firstItem="m8x-pE-V4n" firstAttribute="top" secondItem="NVO-aN-SwH" secondAttribute="top" constant="8" id="LNF-vK-Tob"/>
                                             <constraint firstItem="m8x-pE-V4n" firstAttribute="leading" secondItem="NVO-aN-SwH" secondAttribute="leading" constant="8" id="LTf-mU-hO4"/>
                                             <constraint firstItem="XpX-zr-4dm" firstAttribute="leading" secondItem="NVO-aN-SwH" secondAttribute="leading" id="OsX-0u-D0A"/>
                                             <constraint firstAttribute="trailing" secondItem="5YO-Wh-Fk1" secondAttribute="trailing" id="Qll-6f-CqY"/>
-                                            <constraint firstItem="w74-ua-y4G" firstAttribute="top" secondItem="ReW-kf-4n5" secondAttribute="bottom" id="TUq-ph-cDg"/>
+                                            <constraint firstItem="w74-ua-y4G" firstAttribute="top" secondItem="ReW-kf-4n5" secondAttribute="bottom" constant="1" id="TUq-ph-cDg"/>
                                             <constraint firstAttribute="trailing" secondItem="w74-ua-y4G" secondAttribute="trailing" id="Xxj-CL-1Zk"/>
                                             <constraint firstAttribute="trailing" secondItem="XpX-zr-4dm" secondAttribute="trailing" id="YNj-NN-clG"/>
                                             <constraint firstItem="ReW-kf-4n5" firstAttribute="top" secondItem="NVO-aN-SwH" secondAttribute="top" id="aPJ-j7-tq5"/>
-                                            <constraint firstItem="XpX-zr-4dm" firstAttribute="top" secondItem="5YO-Wh-Fk1" secondAttribute="bottom" id="ciE-lW-l4D"/>
+                                            <constraint firstItem="XpX-zr-4dm" firstAttribute="top" secondItem="5YO-Wh-Fk1" secondAttribute="bottom" constant="1" id="ciE-lW-l4D"/>
                                             <constraint firstItem="pBS-FR-FnB" firstAttribute="leading" secondItem="NVO-aN-SwH" secondAttribute="leading" id="f8h-om-Gwc"/>
                                             <constraint firstItem="5YO-Wh-Fk1" firstAttribute="leading" secondItem="NVO-aN-SwH" secondAttribute="leading" id="nu6-4Z-odF"/>
                                             <constraint firstAttribute="trailing" secondItem="pBS-FR-FnB" secondAttribute="trailing" id="qA0-Zx-c1D"/>

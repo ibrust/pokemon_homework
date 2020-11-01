@@ -24,6 +24,7 @@ enum Type_Colors: String {
     case ghost
     case poison
     case flying
+    case steel
     
     func get_color() -> UIColor {
         switch self {
@@ -59,6 +60,8 @@ enum Type_Colors: String {
             return RGB_to_UIColor(red: 229, green: 57, blue: 169)
         case .flying:
             return RGB_to_UIColor(red: 215, green: 203, blue: 43)
+        case .steel:
+            return RGB_to_UIColor(red: 70, green: 69, blue: 89)
         }
     }
 }

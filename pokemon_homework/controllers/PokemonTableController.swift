@@ -53,7 +53,9 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
         guard let temp_id = array_of_abilities_moves_id_sprites_types[indexPath.row]?.id else {return cell!}
         cell?.id_label_outlet.text = String(temp_id)
         
-        cell?.name_label_outlet.text = (pokemon_previous_next_and_results.results[indexPath.row].name) ?? ""
+        var temp_name = (pokemon_previous_next_and_results.results[indexPath.row].name) ?? ""
+        temp_name = temp_name.prefix(1).uppercased() + temp_name.lowercased().dropFirst()
+        cell?.name_label_outlet.text = temp_name
         
         guard var temp_type = array_of_abilities_moves_id_sprites_types[indexPath.row]?.types[0].type.name ?? "" else {return cell ?? CustomCell()}
         
@@ -115,9 +117,9 @@ class PokemonTableController: UITableViewController, UITableViewDataSourcePrefet
         let sent_row = sender as? Int ?? 0
         let detail_controller = segue.destination as? DetailController ?? DetailController()
 
-        detail_controller.temp_name = (pokemon_previous_next_and_results.results[sent_row].name) ?? ""
-        
-        
+        var temp_name = (pokemon_previous_next_and_results.results[sent_row].name) ?? ""
+        temp_name = temp_name.prefix(1).uppercased() + temp_name.lowercased().dropFirst()
+        detail_controller.temp_name = temp_name
         
         guard var temp_type = array_of_abilities_moves_id_sprites_types[sent_row]?.types[0].type.name ?? "" else {return}
         
