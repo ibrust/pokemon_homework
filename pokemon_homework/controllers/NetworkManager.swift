@@ -22,7 +22,7 @@ public final class NetworkManager{
         self.session = session
     }
     
-    func fetch_list_of_pokemon(_ url: String, offset local_offset: Int, completion: @escaping () -> () ){
+    func fetch_list_of_pokemon(_ url: String, offset page_offset_copy: Int, completion: @escaping () -> () ){
         guard let url_obj = URL(string:url) else{return}
         session.dataTask(with: url_obj) { (data, response, error) in
             if let _ = error{return}
@@ -32,7 +32,7 @@ public final class NetworkManager{
                 let json_response = try JSONDecoder().decode(Pokemon_Previous_Next_And_Results.self, from: data)
                 
                 var count = 0
-                for index in local_offset..<(local_offset + page_size) {
+                for index in page_offset_copy..<(page_offset_copy + page_size) {
                     if index < max_pokemon {
                         pokemon_previous_next_and_results.results[index] = json_response.results[count]
                         count += 1

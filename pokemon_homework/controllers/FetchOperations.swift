@@ -8,8 +8,9 @@
 import UIKit
 
 var fetch_pokemon_operations = [Fetch_Pokemon_Operation?](repeating: nil, count: max_pokemon)
-var fetch_list_operations: [Fetch_List_Operation?] = []
+var list_fetching_operations: [Fetch_List_Operation?] = []
 var operations_queue = OperationQueue()
+
 
 class Fetch_List_Operation: Operation {
     var operation_URL: String
@@ -29,6 +30,7 @@ class Fetch_List_Operation: Operation {
             DispatchQueue.main.async {
                 page_offset = page_offset + page_size
                 self.table_controller_reference?.tableView.reloadData()
+                
                 for index in self.starting_row..<(self.starting_row + page_size) {
                     if index < max_pokemon {
                         fetch_pokemon_operations[index] = Fetch_Pokemon_Operation(index, self.table_controller_reference)
@@ -41,21 +43,20 @@ class Fetch_List_Operation: Operation {
 }
 
 class Fetch_Pokemon_Operation: Operation {
-    
-    var operation_index: Int
+    var saved_index: Int
     var table_controller_reference: PokemonTableController?
     
     init(_ index: Int, _ passed_table_controller: PokemonTableController?){
-        operation_index = index
+        saved_index = index
         super.init()
         table_controller_reference = passed_table_controller
     }
     
     override func main(){
-        let data_url = pokemon_previous_next_and_results.results[operation_index].url!
-        NetworkManager.shared.fetch_single_pokemons_data(url: data_url, index: operation_index) { [weak self] in ()
+        let data_url = pokemon_previous_next_and_results.results[saved_index].url!
+        NetworkManager.shared.fetch_single_pokemons_data(url: data_url, index: saved_index) { [weak self] in ()
             guard let self = self else {return}
-            self.request_single_image(self.operation_index)
+            self.request_single_image(self.saved_index)
         }
     }
     

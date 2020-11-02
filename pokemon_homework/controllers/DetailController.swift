@@ -21,7 +21,6 @@ class DetailController: UIViewController {
     @IBOutlet weak var image_outlet: UIImageView!
     @IBOutlet weak var abilities_outlet: UILabel!
     @IBOutlet weak var moves_outlet: UILabel!
-    
     @IBOutlet weak var new_id_outlet: UILabel!
     
     var first_color: UIColor? = nil

@@ -13,7 +13,6 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var sprite_image_outlet: UIImageView!
     @IBOutlet weak var name_label_outlet: UILabel!
     @IBOutlet weak var type_label_outlet: UILabel!
-    
     @IBOutlet weak var top_border_outlet: UIView!
     @IBOutlet weak var bottom_border_outlet: UIView!
     
